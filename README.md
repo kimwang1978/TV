@@ -1,4 +1,4 @@
-# TVBox 电视频道菜单自定义与直播源接口自动更新（forked from Guovin/TV）
+# TVBox 直播源接口自动更新（forked from Guovin/TV）
 
 自定义频道菜单，根据模板文件的直播源接口，自动获取并更新最新的直播源接口，生成可用的频道接口文件
 
