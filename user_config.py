@@ -4,6 +4,7 @@ favorite_list = [
     "CCTV-5",
     "CCTV-5+",
     "CCTV-13",
+    
     "东方卫视",
     "江苏卫视",
     "浙江卫视",

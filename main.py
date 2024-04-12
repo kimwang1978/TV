@@ -23,14 +23,12 @@ from utils import (
 )
 import logging
 import os
-from tqdm import tqdm
 
 logging.basicConfig(
     filename="result_new.log",
     filemode="a",
     format="%(message)s",
     level=logging.INFO,
-    encoding="utf-8",
 )
 
 
@@ -43,7 +41,6 @@ class UpdateSource:
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option("useAutomationExtension", False)
         options.add_argument("blink-settings=imagesEnabled=false")
-        options.add_argument("--log-level=3")
         driver = webdriver.Chrome(options=options)
         stealth(
             driver,
@@ -60,21 +57,15 @@ class UpdateSource:
         self.driver = self.setup_driver()
 
     async def visitPage(self, channelItems):
-        total_channels = sum(len(channelObj) for _, channelObj in channelItems.items())
-        pbar = tqdm(total=total_channels)
         for cate, channelObj in channelItems.items():
             channelUrls = {}
-            channelObjKeys = channelObj.keys()
-            for name in channelObjKeys:
-                pbar.set_description(
-                    f"Processing {name}, {total_channels - pbar.n} channels remaining"
-                )
+            for name in channelObj.keys():
                 isFavorite = name in config.favorite_list
                 pageNum = (
                     config.favorite_page_num if isFavorite else config.default_page_num
                 )
                 infoList = []
-                for page in range(1, pageNum + 1):
+                for page in range(1, pageNum):
                     try:
                         page_url = f"https://www.foodieguide.com/iptvsearch/?page={page}&s={name}"
                         self.driver.get(page_url)
@@ -90,6 +81,8 @@ class UpdateSource:
                             if tables_div
                             else []
                         )
+                        if not any(result.find("tbody") for result in results):
+                            break
                         for result in results:
                             try:
                                 url, date, resolution = getUrlInfo(result)
@@ -121,24 +114,17 @@ class UpdateSource:
                 except Exception as e:
                     print(f"Error on sorting: {e}")
                     continue
-                finally:
-                    pbar.update()
             updateChannelUrlsTxt(cate, channelUrls)
             # await asyncio.sleep(1)
-        pbar.close()
 
     def main(self):
         asyncio.run(self.visitPage(getChannelItems()))
-        for handler in logging.root.handlers[:]:
-            handler.close()
-            logging.root.removeHandler(handler)
         user_final_file = getattr(config, "final_file", "result.txt")
         user_log_file = (
             "user_result.log" if os.path.exists("user_config.py") else "result.log"
         )
         updateFile(user_final_file, "result_new.txt")
         updateFile(user_log_file, "result_new.log")
-        print(f"Update completed! Please check the {user_final_file} file!")
 
 
 UpdateSource().main()
