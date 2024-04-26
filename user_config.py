@@ -20,7 +20,9 @@ favorite_list = [
     "五星体育",
     "东方财经",
 
-    "CHC",
+    "CHC动作电影",
+    "CHC家庭影院",
+    "CHC高清电影",
     
 ]
 favorite_page_num = 6
