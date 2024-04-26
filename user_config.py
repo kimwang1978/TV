@@ -19,6 +19,9 @@ favorite_list = [
     "上海纪实",
     "五星体育",
     "东方财经",
+
+    "CHC",
+    
 ]
 favorite_page_num = 6
 default_page_num = 4
