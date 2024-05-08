@@ -7,6 +7,7 @@ on:
     branches:
       - master
       - dev
+      - gd
 jobs:
   push:
     runs-on: ${{ matrix.operating-system }}
@@ -15,7 +16,12 @@ jobs:
       matrix:
         operating-system: ['ubuntu-20.04']
     steps:
+      - name: Set branch name
+        id: vars
+        run: echo ::set-output name=branch::${{ github.repository_owner == 'Guovin' && 'gd' || 'master' }}
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.vars.outputs.branch }}
       - name: Run with setup-python 3.11
         uses: actions/setup-python@v4
         with:
