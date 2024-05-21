@@ -1,13 +1,13 @@
 常看,#genre#
 夏洛特烦恼,https://live.metshop.top/yy/1354936201
 夏洛特烦恼,https://www.goodiptv.club/yy/1354936201
-周星驰,http://jxiptv.xn--9kqp7k2rd.com/svip/yy.php?t=1353881242
+周星驰,https://live.metshop.top/yy/1382736808
 知否知否应是绿肥红瘦,https://live.metshop.top/yy/21881901
 雪中悍刀行,https://live.metshop.top/yy/1382660835
 雪中悍刀行,https://live.metshop.top/yy/1354943110
 雪中悍刀行,https://www.goodiptv.club/yy/1382660835
 雪中悍刀行,https://www.goodiptv.club/yy/1354943110
-庆余年,http://cfss.cc/cdn/hy/11352960.flv
+庆余年,http://diyp.112114.xyz/douyu/7489563
 父母爱情,https://www.goodiptv.club/yy/1382746276
 父母爱情,https://www.goodiptv.club/yy/1354926650
 哈利波特全集,https://www.goodiptv.club/yy/1382745105
@@ -31,7 +31,6 @@
 新闻综合,http://180.167.104.105:9901/tsfile/live/1000_1.m3u8?key=txiptv&playlive=1&authid=0
 新闻综合,http://180.164.89.43:9901/tsfile/live/0107_1.m3u8?key=txiptv&playlive=1&authid=0
 新闻综合,http://61.170.164.195:9901/tsfile/live/1000_1.m3u8?key=txiptv&playlive=1&authid=0
-上海都市,https://live.v1.mk/api/bestv.php?id=dshd8m/8000000
 第一财经,http://61.170.164.195:9901/tsfile/live/1006_1.m3u8?key=txiptv&playlive=1&authid=0
 第一财经,http://180.167.104.105:9901/tsfile/live/1006_1.m3u8?key=txiptv&playlive=1&authid=0
 上海ICS,http://180.167.104.105:9901/tsfile/live/1009_1.m3u8?key=txiptv&playlive=1&authid=0
@@ -39,15 +38,17 @@
 上海娱乐,http://61.170.164.195:9901/tsfile/live/1001_1.m3u8?key=txiptv&playlive=1&authid=0
 上海娱乐,http://180.167.104.105:9901/tsfile/live/1001_1.m3u8?key=txiptv&playlive=1&authid=0
 上海教育,http://180.158.146.27:9901/tsfile/live/1007_1.m3u8?key=txiptv&playlive=1&authid=0
-东方影视,https://live.goodiptv.club/api/bestv.php?id=dfyshd8m/8000000
-上海纪实,https://live.v1.mk/api/bestv.php?id=jspdhd/4000000
+东方影视,http://180.158.146.27:9901/tsfile/live/1013_1.m3u8?key=txiptv&playlive=1&authid=0
+东方影视,http://61.170.164.195:9901/tsfile/live/1002_1.m3u8?key=txiptv&playlive=1&authid=0
+上海纪实,http://180.167.104.105:9901/tsfile/live/1007_1.m3u8?key=txiptv&playlive=1&authid=0
+上海纪实,http://61.170.164.195:9901/tsfile/live/1003_1.m3u8?key=txiptv&playlive=1&authid=0
+上海纪实,http://180.158.146.27:9901/tsfile/live/1005_1.m3u8?key=txiptv&playlive=1&authid=0
 上海艺术人生,http://61.170.164.195:9901/tsfile/live/1004_1.m3u8?key=txiptv&playlive=1&authid=0
 五星体育,http://180.167.104.105:9901/tsfile/live/1005_1.m3u8?key=txiptv&playlive=1&authid=0
 五星体育,http://180.164.89.43:9901/tsfile/live/0107_11.m3u8?key=txiptv&playlive=1&authid=0
 五星体育,http://180.158.146.27:9901/tsfile/live/1010_1.m3u8?key=txiptv&playlive=1&authid=0
 五星体育,http://222.71.189.186:9901/tsfile/live/1003_1.m3u8?key=txiptv&playlive=1&authid=0
 五星体育,http://61.170.164.195:9901/tsfile/live/1007_1.m3u8?key=txiptv&playlive=1&authid=0
-东方财经,https://live.v1.mk/api/bestv.php?id=dfcjhd8m/8000000
 
 央视频道,#genre#
 CCTV-5,http://39.134.66.110/PLTV/88888888/224/3221225818/index.m3u8
@@ -76,12 +77,16 @@ CCTV-6,http://39.134.24.166/dbiptv.sn.chinamobile.com/PLTV/88888888/224/32212263
 湖南卫视,http://39.134.65.175/PLTV/88888888/224/3221225506/1.m3u8
 湖南卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225610/index.m3u8
 湖南卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226307/index.m3u8
-安徽卫视,http://115.149.139.141:10001/tsfile/live/1025_1.m3u8
 东方卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225735/index.m3u8
 东方卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226345/index.m3u8
 东方卫视,http://39.134.65.164/PLTV/88888888/224/3221225672/1.m3u8
 东方卫视,http://39.134.65.179/PLTV/88888888/224/3221225672/1.m3u8
 东方卫视,http://39.134.65.173/PLTV/88888888/224/3221225672/1.m3u8
 东方卫视,http://39.134.65.175/PLTV/88888888/224/3221225672/1.m3u8
-江苏卫视,http://222.240.82.92:9901/tsfile/live/0127_1.m3u8
+江苏卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225613/index.m3u8
+江苏卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226310/index.m3u8
+江苏卫视,http://39.134.65.175/PLTV/88888888/224/3221225503/1.m3u8
+江苏卫视,http://39.134.65.181/PLTV/88888888/224/3221225503/1.m3u8
+江苏卫视,http://39.134.65.183/PLTV/88888888/224/3221225503/1.m3u8
+江苏卫视,http://39.134.65.173/PLTV/88888888/224/3221225503/1.m3u8
 
