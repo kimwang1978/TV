@@ -44,5 +44,5 @@ subscribe_urls = [
     "https://m3u.ibert.me/txt/o_cn.txt",
     "https://m3u.ibert.me/txt/j_iptv.txt",
 ]
-open_multicast = True
+open_multicast = False
 region_list = ["all"]
