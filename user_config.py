@@ -1,6 +1,8 @@
 source_file = "user_demo.txt"
 final_file = "user_result.txt"
 favorite_list = [
+    "精品体育",
+    
     "CCTV-5",
     "CCTV-5+",
     "CCTV-13",
