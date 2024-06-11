@@ -8,6 +8,7 @@ on:
       - master
       - dev
       - gd
+      - gd-test
 jobs:
   push:
     runs-on: ${{ matrix.operating-system }}
@@ -18,15 +19,15 @@ jobs:
     steps:
       - name: Set branch name
         id: vars
-        run: echo ::set-output name=branch::${{ github.repository_owner == 'Guovin' && 'gd' || 'master' }}
+        run: echo "BRANCH_NAME=${{ github.repository_owner == 'Guovin' && 'gd' || 'master' }}" >> $GITHUB_ENV
       - uses: actions/checkout@v3
         with:
-          ref: ${{ steps.vars.outputs.branch }}
+          ref: ${{ env.BRANCH_NAME }}
       - name: Run with setup-python 3.11
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-          update-environment: false
+          update-environment: true
           cache: 'pipenv'
       - name: Install Selenium
         run: |
@@ -45,7 +46,7 @@ jobs:
       - name: Install pipenv
         run: pip3 install --user pipenv
       - name: Install dependecies
-        run: pipenv --python python3 && pipenv install
+        run: pipenv --python 3.11 && pipenv install
       - name: Build
         run: pipenv run build
       - name: Commit and push if changed

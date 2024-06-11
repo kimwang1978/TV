@@ -1,5 +1,46 @@
 # 更新日志（Changelog）
 
+## v1.2.0
+
+### 2024/6/9
+
+- 异步并发、多线程支持，大幅提升更新速度（近 10 倍）（Asynchronous concurrency and multi-threading support, significantly increasing update speeds (nearly 10 times faster)）
+- 新增更新工具软件（release 附件:update-tool.exe），首个版本可能会有不可预见的问题，请见谅（Added new update tool software (release attachment: update-tool.exe); the first version may have unforeseen issues, please be understanding）
+
+## v1.1.6
+
+### 2024/5/17
+
+- 增加组播源可全地区运行更新（Added multicast sources to run region-wide updates）
+- 修改默认值：关闭在线检索功能，组播源全地区更新（Change the default value: Disable the online search function and update the multicast source in all regions）
+
+## v1.1.5
+
+### 2024/5/17
+
+- 增加模糊匹配规则，适配在线检索、订阅源、组播源（Add fuzzy matching rules for online search, subscription sources, and multicast sources）
+- 增加订阅源、组播源更新进度条（Added the update progress bar for subscription sources and multicast sources）
+- 优化组播源更新可能出现的无匹配结果情况（Optimize the possible situation of no match results in multicast source updates）
+- 移除部分错误日志打印（Removes some error log prints）
+- 移除严格匹配配置（Removes strict matching configurations）
+
+## v1.1.4
+
+### 2024/5/15
+
+- 新增组播源功能（Added multicast source feature）
+- 新增控制开关，控制多种获取模式的启用状态（Added control switch to manage the activation status of various acquisition modes）
+- 新增严格匹配（Added strict matching）
+- 优化文件读取，提升模板初始化速度（Optimized file reading to improve initialization speed based on templates）
+
+## v1.1.3
+
+### 2024/5/8
+
+- 优化频道接口不对应问题（#99）（Optimize the mismatch problem of the channel interface (#99)）
+- 处理 tqdm 安全问题（Handle the security issue of tqdm）
+- 修改即将被废弃的命令（Modify the commands that are about to be deprecated）
+
 ## v1.1.2
 
 ### 2024/5/7

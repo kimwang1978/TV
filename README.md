@@ -1,4 +1,4 @@
-# TVBox 电视频道菜单自定义与直播源接口自动校验与更新
+# TVBox 电视频道菜单自定义与直播源接口自动校验与更新工具
 
 自定义频道菜单，根据模板文件的直播源接口，自动获取并更新最新的直播源接口，校验并生成可用的频道接口文件
 
@@ -10,40 +10,46 @@
 - 接口验效，过滤无效接口
 - 按响应时间、分辨率综合权衡排序
 - 定时执行，北京时间每日 8:00 执行更新一次
-- 工作流更新频道数量上限 200 个，本地运行无限制
 - 可设置重点关注频道，单独配置获取分页的数量
 - 分页结果获取（可配置页数、接口数量）
 - 保证更新时效性，配置获取最近时间范围内更新的接口
 - 可过滤 ipv4、ipv6 接口
 - 黑名单功能：接口域名与关键字
-- 自定义接口获取源
+- 支持多种获取源方式：线上检索、组播源、订阅源
 
 ## 配置
 
-| 配置项                 | 默认值                                                                                                                      | 描述                                                               |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| source_file            | "demo.txt"                                                                                                                  | 模板文件名称                                                       |
-| final_file             | "result.txt"                                                                                                                | 生成文件名称                                                       |
-| favorite_list          | ["广东珠江","CCTV-1","CCTV-5","CCTV-5+","CCTV-13","广东体育","广东卫视","大湾区卫视","浙江卫视","湖南卫视","翡翠台"]        | 关注频道名称列表（仅用于与常规频道区分，自定义获取分页数量）       |
-| favorite_page_num      | 5                                                                                                                           | 关注频道获取分页数量                                               |
-| default_page_num       | 3                                                                                                                           | 常规频道获取分页数量                                               |
-| urls_limit             | 10                                                                                                                          | 单个频道接口数量                                                   |
-| response_time_weight   | 0.5                                                                                                                         | 响应时间权重值（所有权重值总和应为 1）                             |
-| resolution_weight      | 0.5                                                                                                                         | 分辨率权重值 （所有权重值总和应为 1）                              |
-| recent_days            | 30                                                                                                                          | 获取最近时间范围内更新的接口（单位天），适当减小可避免出现匹配问题 |
-| ipv_type               | "ipv4"                                                                                                                      | 生成结果中接口的类型，可选值："ipv4"、"ipv6"、"all"                |
-| domain_blacklist       | ["epg.pw"]                                                                                                                  | 接口域名黑名单，用于过滤低质量含广告类域名的接口                   |
-| url_keywords_blacklist | []                                                                                                                          | 接口关键字黑名单，用于过滤含特定字符的接口                         |
-| extend_base_urls       | ["https://m3u.ibert.me/txt/fmml_dv6.txt",<br>"https://m3u.ibert.me/txt/o_cn.txt",<br>"https://m3u.ibert.me/txt/j_iptv.txt"] | 接口获取源，目前仅兼容特定内容格式与部分频道名称的模糊匹配         |
+| 配置项                 | 默认值                                                                                                                      | 描述                                                                 |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| source_file            | "demo.txt"                                                                                                                  | 模板文件名称                                                         |
+| final_file             | "result.txt"                                                                                                                | 生成文件名称                                                         |
+| favorite_list          | ["广东珠江","CCTV-1","CCTV-5","CCTV-5+","CCTV-13","广东体育","广东卫视","大湾区卫视","浙江卫视","湖南卫视","翡翠台"]        | 关注频道名称列表（仅用于与常规频道区分，自定义获取分页数量）         |
+| open_online_search     | False                                                                                                                       | 开启线上检索源功能                                                   |
+| favorite_page_num      | 5                                                                                                                           | 关注频道获取分页数量                                                 |
+| default_page_num       | 3                                                                                                                           | 常规频道获取分页数量                                                 |
+| urls_limit             | 10                                                                                                                          | 单个频道接口数量                                                     |
+| open_sort              | True                                                                                                                        | 开启排序功能（响应速度、日期、分辨率），若更执行时间较长可关闭此功能 |
+| response_time_weight   | 0.5                                                                                                                         | 响应时间权重值（所有权重值总和应为 1）                               |
+| resolution_weight      | 0.5                                                                                                                         | 分辨率权重值 （所有权重值总和应为 1）                                |
+| recent_days            | 30                                                                                                                          | 获取最近时间范围内更新的接口（单位天），适当减小可避免出现匹配问题   |
+| ipv_type               | "ipv4"                                                                                                                      | 生成结果中接口的类型，可选值："ipv4"、"ipv6"、"all"                  |
+| domain_blacklist       | ["epg.pw"]                                                                                                                  | 接口域名黑名单，用于过滤低质量含广告类域名的接口                     |
+| url_keywords_blacklist | []                                                                                                                          | 接口关键字黑名单，用于过滤含特定字符的接口                           |
+| open_subscribe         | True                                                                                                                        | 开启订阅源功能                                                       |
+| subscribe_urls         | ["https://m3u.ibert.me/txt/fmml_dv6.txt",<br>"https://m3u.ibert.me/txt/o_cn.txt",<br>"https://m3u.ibert.me/txt/j_iptv.txt"] | 订阅源列表                                                           |
+| open_multicast         | True                                                                                                                        | 开启组播源功能                                                       |
+| region_list            | ["all"]                                                                                                                     | 组播源地区列表，[更多地区](./fofa_map.py)，"all"表示所有地区         |
 
 ## 快速上手
+
+[更新工具软件](https://github.com/Guovin/TV/releases)
 
 有关详细教程，请查看[快速上手](./docs/tutorial.md)
 
 如果您不想折腾，刚好我的配置符合您的需求，可以使用以下链接：
 
-- 接口源：https://mirror.ghproxy.com/raw.githubusercontent.com/Guovin/TV/gd/result.txt
-- 数据源：https://mirror.ghproxy.com/raw.githubusercontent.com/Guovin/TV/gd/source.json
+- 接口源：https://ghproxy.net/raw.githubusercontent.com/Guovin/TV/gd/result.txt
+- 数据源：https://ghproxy.net/raw.githubusercontent.com/Guovin/TV/gd/source.json
 
 ## 更新日志
 

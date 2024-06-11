@@ -1,4 +1,4 @@
-# Customization of TVBox TV Channel Menu and Automatic Verification and Update of Live Source Interfaces
+# TVBox Custom TV Channel Menu and Live Source Interface Automatic Verification and Update Tool
 
 Customize channel menus and automatically obtain and update the latest live source interfaces based on template files, verify, and generate usable channel interface files.
 
@@ -10,40 +10,46 @@ Customize channel menus and automatically obtain and update the latest live sour
 - Interface validation to filter out invalid interfaces
 - Comprehensive sorting based on response time and resolution
 - Scheduled execution, updates every day at 8:00 am Beijing time
-- The maximum number of channels that can be updated in the workflow is 200, while there is no limit when running locally
 - Set up key focus channels and configure the number of pages fetched separately
 - Pagination results retrieval (configurable number of pages and interfaces)
 - Ensure update timeliness, configure to retrieve interfaces updated within a recent time range
 - Can filter ipv4, ipv6 interfaces
 - Blacklist feature: Interface domain and keywords
-- Customize the source of interface acquisition
+- Supports multiple ways of obtaining sources: online search, multicast source, subscription source
 
 ## Config
 
-| Configuration Item     | Default Value                                                                                                               | Description                                                                                                                           |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| source_file            | "demo.txt"                                                                                                                  | Template file name                                                                                                                    |
-| final_file             | "result.txt"                                                                                                                | Generated file name                                                                                                                   |
-| favorite_list          | ["广东珠江","CCTV-1","CCTV-5","CCTV-5+","CCTV-13","广东体育","广东卫视","大湾区卫视","浙江卫视","湖南卫视","翡翠台"]        | List of favorite channel names (used only to distinguish from regular channels, custom page retrieval quantity)                       |
-| favorite_page_num      | 5                                                                                                                           | Page retrieval quantity for favorite channels                                                                                         |
-| default_page_num       | 3                                                                                                                           | Page retrieval quantity for regular channels                                                                                          |
-| urls_limit             | 10                                                                                                                          | Number of interfaces per channel                                                                                                      |
-| response_time_weight   | 0.5                                                                                                                         | Response time weight value (the sum of all weight values should be 1)                                                                 |
-| resolution_weight      | 0.5                                                                                                                         | Resolution weight value (the sum of all weight values should be 1)                                                                    |
-| recent_days            | 30                                                                                                                          | Retrieve interfaces updated within a recent time range (in days), reducing appropriately can avoid matching issues                    |
-| ipv_type               | "ipv4"                                                                                                                      | The type of interface in the generated result, optional values: "ipv4", "ipv6", "all"                                                 |
-| domain_blacklist       | ["epg.pw"]                                                                                                                  | Interface domain blacklist, used to filter out interfaces with low-quality, ad-inclusive domains                                      |
-| url_keywords_blacklist | []                                                                                                                          | Interface keyword blacklist, used to filter out interfaces containing specific characters                                             |
-| extend_base_urls       | ["https://m3u.ibert.me/txt/fmml_dv6.txt",<br>"https://m3u.ibert.me/txt/o_cn.txt",<br>"https://m3u.ibert.me/txt/j_iptv.txt"] | The source of interface acquisition, currently only compatible with specific content formats and fuzzy matching of some channel names |
+| Configuration Item     | Default Value                                                                                                               | Description                                                                                                        |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| source_file            | "demo.txt"                                                                                                                  | Template file name                                                                                                 |
+| final_file             | "result.txt"                                                                                                                | Generated file name                                                                                                |
+| favorite_list          | ["广东珠江","CCTV-1","CCTV-5","CCTV-5+","CCTV-13","广东体育","广东卫视","大湾区卫视","浙江卫视","湖南卫视","翡翠台"]        | List of favorite channel names (used only to distinguish from regular channels, custom page retrieval quantity)    |
+| open_online_search     | False                                                                                                                       | Enable online search source feature                                                                                |
+| favorite_page_num      | 5                                                                                                                           | Page retrieval quantity for favorite channels                                                                      |
+| default_page_num       | 3                                                                                                                           | Page retrieval quantity for regular channels                                                                       |
+| urls_limit             | 10                                                                                                                          | Number of interfaces per channel                                                                                   |
+| open_sort              | True                                                                                                                        | Enable the sorting function (response speed, date, resolution), or turn it off if it takes a long time to execute  |
+| response_time_weight   | 0.5                                                                                                                         | Response time weight value (the sum of all weight values should be 1)                                              |
+| resolution_weight      | 0.5                                                                                                                         | Resolution weight value (the sum of all weight values should be 1)                                                 |
+| recent_days            | 30                                                                                                                          | Retrieve interfaces updated within a recent time range (in days), reducing appropriately can avoid matching issues |
+| ipv_type               | "ipv4"                                                                                                                      | The type of interface in the generated result, optional values: "ipv4", "ipv6", "all"                              |
+| domain_blacklist       | ["epg.pw"]                                                                                                                  | Interface domain blacklist, used to filter out interfaces with low-quality, ad-inclusive domains                   |
+| url_keywords_blacklist | []                                                                                                                          | Interface keyword blacklist, used to filter out interfaces containing specific characters                          |
+| open_subscribe         | True                                                                                                                        | Enable subscription source feature                                                                                 |
+| subscribe_urls         | ["https://m3u.ibert.me/txt/fmml_dv6.txt",<br>"https://m3u.ibert.me/txt/o_cn.txt",<br>"https://m3u.ibert.me/txt/j_iptv.txt"] | Subscription source list                                                                                           |
+| open_multicast         | True                                                                                                                        | Enable multicast source function                                                                                   |
+| region_list            | ["all"]                                                                                                                     | Multicast source region list, [more regions](./fofa_map.py, "all" means all regions)                               |
 
 ## Quick Start
+
+[Update tool software](https://github.com/Guovin/TV/releases)
 
 For detailed tutorial, please see [Quick Start](./docs/tutorial-EN.md)
 
 If you don't want to bother, and my configuration just meets your needs, you can use the following links:
 
-- Interface source: https://mirror.ghproxy.com/raw.githubusercontent.com/Guovin/TV/gd/result.txt
-- Data source: https://mirror.ghproxy.com/raw.githubusercontent.com/Guovin/TV/gd/source.json
+- Interface source: https://ghproxy.net/raw.githubusercontent.com/Guovin/TV/gd/result.txt
+- Data source: https://ghproxy.net/raw.githubusercontent.com/Guovin/TV/gd/source.json
 
 ## Changelog
 
