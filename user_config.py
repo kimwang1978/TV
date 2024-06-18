@@ -27,7 +27,7 @@ favorite_list = [
     "CHC高清电影",
     
 ]
-open_online_search = False
+open_online_search = True
 favorite_page_num = 5
 default_page_num = 3
 urls_limit = 15
