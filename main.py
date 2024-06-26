@@ -37,69 +37,77 @@ class UpdateSource:
         self.tasks = []
         self.channel_items = get_channel_items()
         self.results = {}
-        self.semaphore = asyncio.Semaphore(10)
         self.channel_data = {}
         self.pbar = None
         self.total = 0
         self.start_time = None
 
-    def append_data_to_info_data(self, cate, name, data):
+    def check_info_data(self, cate, name):
+        if self.channel_data.get(cate) is None:
+            self.channel_data[cate] = {}
+        if self.channel_data[cate].get(name) is None:
+            self.channel_data[cate][name] = []
+
+    def append_data_to_info_data(self, cate, name, data, check=True):
+        self.check_info_data(cate, name)
         for url, date, resolution in data:
-            if url and check_url_by_patterns(url):
-                if self.channel_data.get(cate) is None:
-                    self.channel_data[cate] = {}
-                if self.channel_data[cate].get(name) is None:
-                    self.channel_data[cate][name] = []
+            if (url and not check) or (url and check and check_url_by_patterns(url)):
                 self.channel_data[cate][name].append((url, date, resolution))
 
     async def sort_channel_list(self, cate, name, info_list):
         try:
-            if config.open_sort:
-                sorted_data = await sort_urls_by_speed_and_resolution(info_list)
-                if sorted_data:
-                    for (
-                        url,
-                        date,
-                        resolution,
-                    ), response_time in sorted_data:
-                        logging.info(
-                            f"Name: {name}, URL: {url}, Date: {date}, Resolution: {resolution}, Response Time: {response_time}ms"
-                        )
-                    data = [
-                        (url, date, resolution)
-                        for (url, date, resolution), _ in sorted_data
-                    ]
-                    self.append_data_to_info_data(cate, name, data)
+            sorted_data = await sort_urls_by_speed_and_resolution(info_list)
+            if sorted_data:
+                self.check_info_data(cate, name)
+                self.channel_data[cate][name] = []
+                for (
+                    url,
+                    date,
+                    resolution,
+                ), response_time in sorted_data:
+                    logging.info(
+                        f"Name: {name}, URL: {url}, Date: {date}, Resolution: {resolution}, Response Time: {response_time}ms"
+                    )
+                data = [
+                    (url, date, resolution)
+                    for (url, date, resolution), _ in sorted_data
+                ]
+                self.append_data_to_info_data(cate, name, data, False)
         except Exception as e:
             logging.error(f"Error: {e}")
         finally:
             self.pbar.update()
             self.pbar.set_description(
-                f"Sorting, {self.pbar.total - self.pbar.n} urls remaining"
+                f"Sorting, {self.pbar.total - self.pbar.n} channels remaining"
             )
             self.update_progress(
-                f"正在测速排序, 剩余{self.pbar.total - self.pbar.n}个接口, 预计剩余时间: {get_pbar_remaining(self.pbar, self.start_time)}",
+                f"正在测速排序, 剩余{self.pbar.total - self.pbar.n}个频道, 预计剩余时间: {get_pbar_remaining(self.pbar, self.start_time)}",
                 int((self.pbar.n / self.total) * 100),
             )
 
     def process_channel(self):
         for cate, channel_obj in self.channel_items.items():
             for name, old_urls in channel_obj.items():
-                format_name = format_channel_name(name)
+                formatName = format_channel_name(name)
                 if config.open_subscribe:
                     self.append_data_to_info_data(
-                        cate, name, self.results["open_subscribe"].get(format_name, [])
+                        cate, name, self.results["open_subscribe"].get(formatName, [])
                     )
                 if config.open_multicast:
                     self.append_data_to_info_data(
-                        cate, name, self.results["open_multicast"].get(format_name, [])
+                        cate, name, self.results["open_multicast"].get(formatName, [])
                     )
                 if config.open_online_search:
                     self.append_data_to_info_data(
                         cate,
                         name,
-                        self.results["open_online_search"].get(format_name, []),
+                        self.results["open_online_search"].get(formatName, []),
                     )
+                print(
+                    name,
+                    "total len:",
+                    len(self.channel_data.get(cate, {}).get(name, [])),
+                )
                 if len(self.channel_data.get(cate, {}).get(name, [])) == 0:
                     self.append_data_to_info_data(
                         cate, name, [(url, None, None) for url in old_urls]
@@ -114,6 +122,7 @@ class UpdateSource:
                 info_list = self.channel_data.get(cate, {}).get(name, [])
                 try:
                     channel_urls = get_total_urls_from_info_list(info_list)
+                    print("write:", cate, name, len(channel_urls))
                     update_channel_urls_txt(cate, name, channel_urls)
                 finally:
                     self.pbar.update()
@@ -154,7 +163,7 @@ class UpdateSource:
             self.tasks = []
             channel_names = [
                 name
-                for cate, channel_obj in self.channel_items.items()
+                for channel_obj in self.channel_items.values()
                 for name in channel_obj.keys()
             ]
             self.total = len(channel_names)
@@ -167,9 +176,11 @@ class UpdateSource:
                     for name, info_list in channel_obj.items()
                 ]
                 self.pbar = tqdm_asyncio(total=len(self.tasks))
-                self.pbar.set_description(f"Sorting, {len(self.tasks)} urls remaining")
+                self.pbar.set_description(
+                    f"Sorting, {len(self.tasks)} channels remaining"
+                )
                 self.update_progress(
-                    f"正在测速排序, 共{len(self.tasks)}个接口",
+                    f"正在测速排序, 共{len(self.tasks)}个频道",
                     int((self.pbar.n / len(self.tasks)) * 100),
                 )
                 self.start_time = time()
@@ -181,13 +192,19 @@ class UpdateSource:
                 handler.close()
                 logging.root.removeHandler(handler)
             user_final_file = getattr(config, "final_file", "result.txt")
-            user_log_file = (
-                "user_result.log" if os.path.exists("user_config.py") else "result.log"
-            )
             update_file(user_final_file, "result_new.txt")
-            update_file(user_log_file, "result_new.log")
+            if config.open_sort:
+                user_log_file = (
+                    "user_result.log"
+                    if os.path.exists("user_config.py")
+                    else "result.log"
+                )
+                update_file(user_log_file, "result_new.log")
             print(f"Update completed! Please check the {user_final_file} file!")
-            self.update_progress(f"更新完成, 请检查{user_final_file}文件", 100, True)
+            if self.run_ui:
+                self.update_progress(
+                    f"更新完成, 请检查{user_final_file}文件", 100, True
+                )
         except asyncio.exceptions.CancelledError:
             print("Update cancelled!")
 
@@ -215,4 +232,6 @@ class UpdateSource:
 
 if __name__ == "__main__":
     update_source = UpdateSource()
-    asyncio.run(update_source.start())
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(update_source.start())
