@@ -13,6 +13,7 @@ from utils import (
     resource_path,
     load_external_config,
     get_pbar_remaining,
+    get_ip_address,
 )
 import logging
 from logging.handlers import RotatingFileHandler
@@ -20,6 +21,8 @@ import os
 from tqdm import tqdm
 from tqdm.asyncio import tqdm_asyncio
 from time import time
+from flask import Flask, render_template_string
+import sys
 
 config_path = resource_path("user_config.py")
 default_config_path = resource_path("config.py")
@@ -28,6 +31,16 @@ config = (
     if os.path.exists(config_path)
     else load_external_config("config.py")
 )
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def show_result():
+    user_final_file = getattr(config, "final_file", "result.txt")
+    with open(user_final_file, "r", encoding="utf-8") as file:
+        content = file.read()
+    return render_template_string("<pre>{{ content }}</pre>", content=content)
 
 
 class UpdateSource:
@@ -216,9 +229,14 @@ class UpdateSource:
                 )
                 update_file(user_log_file, "result_new.log")
             print(f"Update completed! Please check the {user_final_file} file!")
+            if not os.environ.get("GITHUB_ACTIONS"):
+                print(f"You can access the result at {get_ip_address()}")
             if self.run_ui:
                 self.update_progress(
-                    f"更新完成, 请检查{user_final_file}文件", 100, True
+                    f"更新完成, 请检查{user_final_file}文件, 可访问以下链接:",
+                    100,
+                    True,
+                    url=f"{get_ip_address()}",
                 )
         except asyncio.exceptions.CancelledError:
             print("Update cancelled!")
@@ -236,6 +254,8 @@ class UpdateSource:
             level=logging.INFO,
         )
         await self.main()
+        if self.run_ui:
+            app.run(host="0.0.0.0", port=8000)
 
     def stop(self):
         for task in self.tasks:
@@ -245,8 +265,19 @@ class UpdateSource:
             self.pbar.close()
 
 
+def scheduled_task():
+    if config.open_update:
+        update_source = UpdateSource()
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(update_source.start())
+
+
 if __name__ == "__main__":
-    update_source = UpdateSource()
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(update_source.start())
+    # Run scheduled_task
+    scheduled_task()
+
+    # If not run with 'scheduled_task' argument and not in GitHub Actions, start Flask server
+    if len(sys.argv) <= 1 or sys.argv[1] != "scheduled_task":
+        if not os.environ.get("GITHUB_ACTIONS"):
+            app.run(host="0.0.0.0", port=3000)
