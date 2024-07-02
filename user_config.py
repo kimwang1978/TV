@@ -1,3 +1,4 @@
+open_update = True
 source_file = "user_demo.txt"
 final_file = "user_result.txt"
 favorite_list = [
@@ -46,3 +47,4 @@ subscribe_urls = [
 ]
 open_multicast = True
 region_list = ["all"]
+open_proxy = True
