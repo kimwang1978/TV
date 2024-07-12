@@ -1,6 +1,24 @@
-# TVBox 电视频道菜单自定义与直播源接口自动校验与更新工具
+# 电视频道菜单自定义与直播源接口更新工具
 
 自定义频道菜单，根据模板文件的直播源接口，自动获取并更新最新的直播源接口，校验并生成可用的频道接口文件
+
+<p align="center">
+  <a href="https://github.com/Guovin/TV/releases/latest">
+    <img src="https://img.shields.io/github/v/release/guovin/tv" />
+  </a>
+  <a href="https://www.python.org/">
+    <img src="https://img.shields.io/badge/python-%20%3E%3D%203.8-47c219" />
+  </a>
+  <a href="https://github.com/Guovin/TV/releases/latest">
+    <img src="https://img.shields.io/github/downloads/guovin/tv/total" />
+  </a>
+  <a href="https://hub.docker.com/repository/docker/guovern/tv-requests">
+    <img src="https://img.shields.io/docker/pulls/guovern/tv-requests?label=docker:requests" />
+  </a>
+   <a href="https://hub.docker.com/repository/docker/guovern/tv-driver">
+    <img src="https://img.shields.io/docker/pulls/guovern/tv-driver?label=docker:driver" />
+  </a>
+</p>
 
 [English](./README_en.md) | 中文
 
@@ -37,12 +55,35 @@ pipenv run build
 pipenv run ui
 ```
 
+![更新工具软件](./docs/images/ui.png '更新工具软件')
+
 ### 方式三：Docker 更新
 
+- requests：轻量级，性能要求低，更新速度快，稳定性不确定（推荐订阅源使用此版本）
+- driver：性能要求较高，更新速度较慢，稳定性、成功率高（在线搜索、组播源使用此版本）
+
+建议都试用一次，选择自己合适的版本，在线搜索和组播源使用 requests 能拿到结果的话，优先选择 requests 版本。
+
 ```bash
-1. 拉取镜像：docker pull guovern/tv:latest
-2. 运行容器：docker run -d -p 8000:8000 tv
-3. 访问（域名:8000）查看更新结果
+1. 拉取镜像：
+
+requests版本：
+docker pull guovern/tv-requests:latest
+
+driver版本：
+docker pull guovern/tv-driver:latest
+
+2. 运行容器：docker run --name tv-requests或driver -d -p 8000:8000 guovern/tv-requests或driver
+
+3. 查看更新结果：访问（域名:8000）
+
+4. 自定义（可选）：
+
+- 修改模板：
+docker cp 系统路径/user-demo.txt tv-requests或driver:/app/user-demo.txt
+
+- 修改配置：
+docker cp 系统路径/user-config.py tv-requests或driver:/app/user-config.py
 ```
 
 #### 注：方式一至三更新完成后的结果文件链接：http://本地 ip:8000

@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 max_retries = 3
-timeout = 10
+timeout = 15
 
 
 def retry_func(func, retries=max_retries + 1, name=""):
@@ -13,16 +13,16 @@ def retry_func(func, retries=max_retries + 1, name=""):
     """
     for i in range(retries):
         try:
-            sleep(3)
+            sleep(1)
             return func()
         except Exception as e:
-            count = retries - 1
-            if name and i < count:
+            if name and i < retries - 1:
                 print(f"Failed to connect to the {name}. Retrying {i+1}...")
-            if i == count:
-                return False
-            else:
-                continue
+            elif i == retries - 1:
+                raise Exception(
+                    f"Failed to connect to the {name} reached the maximum retries."
+                )
+    raise Exception(f"Failed to connect to the {name} reached the maximum retries.")
 
 
 def locate_element_with_retry(driver, locator, timeout=timeout, retries=max_retries):

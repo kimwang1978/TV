@@ -1,9 +1,13 @@
 from asyncio import create_task, gather
 from utils.speed import get_speed
-from utils.channel import format_channel_name, get_results_from_soup
+from utils.channel import (
+    format_channel_name,
+    get_results_from_soup,
+    get_results_from_soup_requests,
+)
 from utils.tools import check_url_by_patterns, get_pbar_remaining, get_soup
 from utils.config import get_config
-from proxy import get_proxy
+from proxy import get_proxy, get_proxy_next
 from time import time, sleep
 from driver.setup import setup_driver
 from utils.retry import (
@@ -13,6 +17,8 @@ from utils.retry import (
 )
 from selenium.webdriver.common.by import By
 from tqdm.asyncio import tqdm_asyncio
+from concurrent.futures import ThreadPoolExecutor
+from requests_custom.utils import get_soup_requests, close_session
 
 config = get_config()
 
@@ -50,7 +56,7 @@ def search_submit(driver, name):
     )
     if not submit_button:
         return
-    sleep(3)
+    sleep(1)
     driver.execute_script("arguments[0].click();", submit_button)
 
 
@@ -59,20 +65,48 @@ async def get_channels_by_online_search(names, callback):
     Get the channels by online search
     """
     channels = {}
-    pageUrl = await use_accessible_url(callback)
+    # pageUrl = await use_accessible_url(callback)
+    pageUrl = "http://tonkiang.us/"
     if not pageUrl:
         return channels
     proxy = None
     if config.open_proxy:
         proxy = await get_proxy(pageUrl, best=True, with_test=True)
     start_time = time()
-    driver = setup_driver(proxy)
 
     def process_channel_by_online_search(name):
         info_list = []
+        nonlocal proxy
         try:
-            retry_func(lambda: driver.get(pageUrl), name=f"online search:{name}")
-            search_submit(driver, name)
+            if config.open_driver:
+                driver = setup_driver(proxy)
+                try:
+                    retry_func(
+                        lambda: driver.get(pageUrl), name=f"online search:{name}"
+                    )
+                except Exception as e:
+                    if config.open_proxy:
+                        proxy = get_proxy_next()
+                    driver.close()
+                    driver.quit()
+                    driver = setup_driver(proxy)
+                    driver.get(pageUrl)
+                search_submit(driver, name)
+            else:
+                page_soup = None
+                request_url = f"{pageUrl}?channel={name}"
+                try:
+                    page_soup = retry_func(
+                        lambda: get_soup_requests(request_url, proxy=proxy),
+                        name=f"online search:{name}",
+                    )
+                except Exception as e:
+                    if config.open_proxy:
+                        proxy = get_proxy_next()
+                    page_soup = get_soup_requests(request_url, proxy=proxy)
+                if not page_soup:
+                    print(f"{name}:Request fail.")
+                    return
             isFavorite = name in config.favorite_list
             pageNum = (
                 config.favorite_page_num if isFavorite else config.default_page_num
@@ -80,45 +114,71 @@ async def get_channels_by_online_search(names, callback):
             retry_limit = 3
             for page in range(1, pageNum + 1):
                 retries = 0
+                if not config.open_driver and page == 1:
+                    retries = 2
                 while retries < retry_limit:
                     try:
                         if page > 1:
-                            page_link = find_clickable_element_with_retry(
-                                driver,
-                                (
-                                    By.XPATH,
-                                    f'//a[contains(@href, "={page}") and contains(@href, "{name}")]',
-                                ),
-                            )
-                            if not page_link:
-                                break
-                            sleep(3)
-                            driver.execute_script("arguments[0].click();", page_link)
-                        sleep(3)
-                        soup = get_soup(driver.page_source)
+                            if config.open_driver:
+                                page_link = find_clickable_element_with_retry(
+                                    driver,
+                                    (
+                                        By.XPATH,
+                                        f'//a[contains(@href, "={page}") and contains(@href, "{name}")]',
+                                    ),
+                                )
+                                if not page_link:
+                                    break
+                                sleep(1)
+                                driver.execute_script(
+                                    "arguments[0].click();", page_link
+                                )
+                            else:
+                                request_url = f"{pageUrl}?channel={name}&page={page}"
+                                page_soup = retry_func(
+                                    lambda: get_soup_requests(request_url, proxy=proxy),
+                                    name=f"online search:{name}, page:{page}",
+                                )
+                        sleep(1)
+                        soup = (
+                            get_soup(driver.page_source)
+                            if config.open_driver
+                            else page_soup
+                        )
                         if soup:
-                            results = get_results_from_soup(soup, name)
+                            results = (
+                                get_results_from_soup(soup, name)
+                                if config.open_driver
+                                else get_results_from_soup_requests(soup, name)
+                            )
                             print(name, "page:", page, "results num:", len(results))
                             if len(results) == 0:
                                 print(
                                     f"{name}:No results found, refreshing page and retrying..."
                                 )
-                                driver.refresh()
+                                if config.open_driver:
+                                    driver.refresh()
                                 retries += 1
                                 continue
                             elif len(results) <= 3:
-                                next_page_link = find_clickable_element_with_retry(
-                                    driver,
-                                    (
-                                        By.XPATH,
-                                        f'//a[contains(@href, "={page+1}") and contains(@href, "{name}")]',
-                                    ),
-                                    retries=1,
-                                )
-                                if next_page_link:
-                                    search_submit(driver, name)
-                                    retries += 1
-                                    continue
+                                if config.open_driver:
+                                    next_page_link = find_clickable_element_with_retry(
+                                        driver,
+                                        (
+                                            By.XPATH,
+                                            f'//a[contains(@href, "={page+1}") and contains(@href, "{name}")]',
+                                        ),
+                                        retries=1,
+                                    )
+                                    if next_page_link:
+                                        if config.open_proxy:
+                                            proxy = get_proxy_next()
+                                        driver.close()
+                                        driver.quit()
+                                        driver = setup_driver(proxy)
+                                        search_submit(driver, name)
+                                retries += 1
+                                continue
                             for result in results:
                                 url, date, resolution = result
                                 if url and check_url_by_patterns(url):
@@ -128,7 +188,8 @@ async def get_channels_by_online_search(names, callback):
                             print(
                                 f"{name}:No results found, refreshing page and retrying..."
                             )
-                            driver.refresh()
+                            if config.open_driver:
+                                driver.refresh()
                             retries += 1
                             continue
                     except Exception as e:
@@ -140,18 +201,30 @@ async def get_channels_by_online_search(names, callback):
             print(f"{name}:Error on search: {e}")
             pass
         finally:
-            channels[format_channel_name(name)] = info_list
+            if config.open_driver:
+                driver.close()
+                driver.quit()
             pbar.update()
             callback(
                 f"正在线上查询更新, 剩余{names_len - pbar.n}个频道待查询, 预计剩余时间: {get_pbar_remaining(pbar, start_time)}",
                 int((pbar.n / names_len) * 100),
             )
+            return {"name": format_channel_name(name), "data": info_list}
 
     names_len = len(names)
     pbar = tqdm_asyncio(total=names_len, desc="Online search")
     callback(f"正在线上查询更新, 共{names_len}个频道", 0)
-    for name in names:
-        process_channel_by_online_search(name)
-    driver.quit()
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        futures = [
+            executor.submit(process_channel_by_online_search, name) for name in names
+        ]
+        for future in futures:
+            result = future.result()
+            name = result.get("name")
+            data = result.get("data", [])
+            if name:
+                channels[name] = data
+    if not config.open_driver:
+        close_session()
     pbar.close()
     return channels
