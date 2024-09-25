@@ -1,4 +1,7 @@
-# 电视频道菜单自定义与直播源接口更新工具
+<div align="center">
+  <img src="./static/images/logo.png" alt="logo"/>
+  <h1 align="center">电视直播源更新工具</h1>
+</div>
 
 自定义频道菜单，根据模板文件的直播源接口，自动获取并更新最新的直播源接口，校验并生成可用的频道接口文件
 
@@ -25,9 +28,9 @@
 ## 特点
 
 - 自定义模板，生成您想要的频道分类与频道顺序
-- 支持多种获取源方式：线上检索、组播源、酒店源、订阅源
+- 支持多种获取源方式：组播源、酒店源、订阅源、线上检索
 - 接口测速验效，响应时间、分辨率优先级，过滤无效接口
-- 定时执行，北京时间每日 6:00 执行更新
+- 定时执行，北京时间每日 6:00 与 18:00 执行更新
 - 支持多种运行方式：工作流、命令行、界面软件、Docker
 - 更多功能请见[配置参数](./docs/config.md)
 
@@ -59,34 +62,37 @@ pipenv run ui
 
 ### 方式三：Docker 更新
 
-- requests：轻量级，性能要求低，更新速度快，稳定性不确定（推荐订阅源使用此版本）
-- driver：性能要求较高，更新速度较慢，稳定性、成功率高（在线搜索、组播源使用此版本）
+- requests：轻量级，性能要求低，更新速度快，稳定性不确定（推荐组播源、订阅源使用此版本）
+- driver：性能要求较高，更新速度较慢，稳定性、成功率高（推荐在线搜索使用此版本）
 
-建议都试用一次，选择自己合适的版本，在线搜索和组播源使用 requests 能拿到结果的话，优先选择 requests 版本。
+建议都试用一次，选择自己合适的版本，在线搜索使用 requests 能拿到结果的话，优先选择 requests 版本。
 
 ```bash
 1. 拉取镜像：
-
-requests版本：
+requests：
 docker pull guovern/tv-requests:latest
 
-driver版本：
+driver：
 docker pull guovern/tv-driver:latest
 
-2. 运行容器：docker run --name tv-requests或driver -d -p 8000:8000 guovern/tv-requests或driver
+2. 运行容器：
+docker run -d -p 8000:8000 guovern/tv-requests 或 tv-driver
+
+卷挂载参数（可选）：
+实现宿主机文件与容器文件同步，修改模板、配置、获取更新结果文件可直接在宿主机文件夹下操作
+
+配置文件：
+-v 宿主机路径/config:/tv-requests/config 或 tv-driver/config
+
+结果文件：
+-v 宿主机路径/output:/tv-requests/output 或 tv-driver/output
+
+例：docker run -v /etc/docker/config:/tv-requests/config -v /etc/docker/output:/tv-requests/output -d -p 8000:8000 guovern/tv-requests
 
 3. 查看更新结果：访问（域名:8000）
-
-4. 自定义（可选）：
-
-- 修改模板：
-docker cp 系统路径/user-demo.txt tv-requests或driver:/app/user-demo.txt
-
-- 修改配置：
-docker cp 系统路径/user-config.py tv-requests或driver:/app/user-config.py
 ```
 
-#### 注：方式一至三更新完成后的结果文件链接：http://本地 ip:8000
+#### 注：方式一至三更新完成后的结果文件链接：http://本地 ip:8000 或 http://localhost:8000
 
 ### 方式四：工作流更新
 
@@ -96,8 +102,17 @@ Fork 本项目并开启工作流更新
 
 如果您不想折腾，刚好我的配置符合您的需求，可以使用以下链接：
 
-- 接口源：https://ghproxy.net/raw.githubusercontent.com/Guovin/TV/gd/result.txt
-- 数据源：https://ghproxy.net/raw.githubusercontent.com/Guovin/TV/gd/source.json
+- 接口源：
+
+```bash
+  https://ghproxy.net/raw.githubusercontent.com/Guovin/TV/gd/output/result.m3u
+```
+
+- 数据源：
+
+```bash
+  https://ghproxy.net/raw.githubusercontent.com/Guovin/TV/gd/source.json
+```
 
 ## 更新日志
 
@@ -109,4 +124,4 @@ Fork 本项目并开启工作流更新
 
 ## 赞赏
 
-![image](./docs/images/appreciate.jpg)
+![image](./static/images/appreciate.jpg)

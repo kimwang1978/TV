@@ -1,5 +1,182 @@
 # 更新日志（Changelog）
 
+## v1.4.7
+
+### 2024/09/23
+
+- 修复部分设备本地运行软件 driver 问题(#335)
+- 修复 driver 模式下新版谷歌浏览器白屏问题
+
+- Fix some issues with local software driver operation on certain devices (#335)
+- Fix the white screen issue with the new version of Google Chrome in driver mode
+
+## v1.4.6
+
+### 2024/9/20
+
+- 优化 IPv6 测试是否支持(#328)
+- 优化 404 类接口测速(#329)
+
+- Optimize IPv6 test support (#328)
+- Optimize 404 class interface speed test (#329)
+
+## v1.4.5
+
+### 2024/9/19
+
+- 修复 IPv6 接口测速(#325)
+
+- Fix IPv6 Interface Speed Test (#325)
+
+## v1.4.4
+
+### 2024/9/14
+
+- 修复组播接口测速可能出现结果频道分类空的问题
+- 修复使用历史更新结果时可能出现模板不存在的频道问题
+- 更新 FOFA 组播、酒店缓存
+- 更新默认模板(demo.txt)内容
+- 更新使用教程
+
+- Fix the issue where multicast interface speed test may result in an empty channel category
+- Fix the issue where channels may appear missing when updating results with history
+- Update FOFA multicast and hotel cache
+- Update default template (demo.txt) content
+- Update user guide
+
+## v1.4.3
+
+### 2024/9/11
+
+- 修正 RTP 文件：贵州电信文件错误，第一财经、东方财经等频道命名，地址错误
+
+- Fixed RTP files: Corrected errors in Guizhou Telecom files, including naming and address errors for channels such as First Financial and Oriental Financial
+
+## v1.4.2
+
+### 2024/9/10
+
+- 新增内蒙古、甘肃、海南、云南地区
+- 更新 FOFA 酒店、组播缓存
+- 更新组播 RTP 文件
+- 优化测速过滤无效接口
+- 增加接口域名黑名单，避免频道花屏情况
+- 修复 FOFA requests 模式请求失败导致程序中止问题
+
+- Added Inner Mongolia, Gansu, Hainan, and Yunnan regions
+- Updated FOFA hotels and multicast cache
+- Updated multicast RTP files
+- Optimize speed test to filter out invalid interfaces
+- Add interface domain name blacklist to avoid channel screen distortion
+- Fix issue where FOFA requests mode failure leads to program termination
+
+## v1.4.1
+
+### 2024/9/9
+
+- 新增 FOFA 缓存，解决访问限制问题
+- 修复 CCTV-5+等频道 M3U 转换问题（#301）
+- 优化频道匹配问题
+- 优化地区选择空格情况
+
+- Added FOFA cache to address access restrictions
+- Fixed M3U conversion issues for channels like CCTV-5+ (#301)
+- Optimized channel matching issues
+- Improved handling of spaces in region selection
+
+## v1.4.0
+
+### 2024/9/5
+
+- 注意：本次更新涉及配置变更，请以最新 config/config.ini 为准，工作流使用 user_config.ini 或 docker 挂载的用户请及时更新配置文件
+- 新增组播源运行模式：FOFA、Tonkiang
+- 新增支持组播源自定义维护频道 IP，目录位于 config/rtp，文件按“地区\_运营商”命名
+- 优化测速方法，大幅提升组播源、酒店源的测速速度
+- 优化频道名称匹配方法，支持模糊匹配，提高命中率
+- 优化地区输入选择框
+- 修复 driver 模式请求问题
+- 修复组播地区选择全部时无法运行问题
+- 修复工作流使用 user_config 时无法生成 m3u 结果问题
+
+- Warning: This update involves configuration changes. Please refer to the latest config/config.ini. Users using user_config.ini or Docker-mounted configurations should update their configuration files promptly.
+- Added multicast source operation modes: FOFA, Tonkiang.
+- Added support for custom-maintained multicast source channel IPs, located in config/rtp, with files named by "region_operator".
+- Optimized speed test method, significantly improving the speed test of multicast sources and hotel sources.
+- Optimized channel name matching method to support fuzzy matching, increasing hit rate.
+- Optimized region input selection box.
+- Fixed an issue with driver mode requests.
+- Fixed an issue where multicast would not run when all regions were selected.
+- Fixed an issue where workflows using user_config could not generate m3u results.
+
+## v1.3.9
+
+### 2024/8/30
+
+- 酒店源新增 ZoomEye 数据源，开启 FOFA 配置即可使用（Added ZoomEye data source to hotel sources, can be used by enabling FOFA configuration）
+- 酒店源、组播源地区选项增加“全部”选项（Added "all" option to the region selection for hotel sources and multicast sources）
+- 调整默认运行配置：关闭订阅源更新、Tonkiang 酒店源更新（Adjusted default runtime configuration: disabled subscription source updates and Tonkiang hotel source updates）
+
+## v1.3.8
+
+### 2024/8/29
+
+- 更新组播地区 IP 缓存数据（Update multicast area IP cache data）
+- 移除 source_channels 配置项（Remove source_channels configuration item）
+- 优化模板频道名称匹配（Optimize template channel name matching）
+- 优化进度条，显示接口处理进度（Optimize the progress bar to display the interface processing progress）
+- UI 软件增加部分图标（Add some icons to the UI software）
+
+## v1.3.7
+
+### 2024/8/27
+
+- 新增支持 M3U 结果格式转换，支持显示频道图标(open_m3u_result)（Added support for M3U result format conversion, including channel icon display (open_m3u_result)）
+- 新增对于无结果的频道进行额外补充查询（Added additional queries for channels with no results）
+- 增加控制使用 FFmpeg 开关(open_ffmpeg)（Added a switch to control the use of FFmpeg (open_ffmpeg)）
+- 调整默认配置以酒店源模式运行（Adjusted default configuration to run in hotel source mode）
+- 优化测速方法（Optimize Speed Test Method）
+- 修复酒店源 CCTV 类等频道结果匹配异常（Fixed abnormal matching of results for hotel source CCTV channels）
+- 修复组播源、酒店源 driver 运行问题（Fixed issues with multicast source and hotel source driver operation）
+- 修复订阅源更新异常（Fixed subscription source update anomalies）
+
+## v1.3.6
+
+### 2024/8/22
+
+- 新增酒店源更新，支持 Tonkiang、FOFA 两种工作模式（Added hotel source updates, supporting Tonkiang and FOFA working modes）
+- 重构 UI 界面软件，新增帮助-关于、获取频道名称编辑、酒店源相关配置、软件图标（Refactored UI interface software, added Help-About, channel name editing, hotel source related configuration, and software icon）
+- 新增测速日志页面服务，结果链接后添加/log 即可查看（Added a new speed test log page service. To view the results, simply add /log to the link）
+- 移除关注频道相关配置（Removed configuration related to followed channels）
+- 修复 Docker 定时任务未执行问题（Fixed issue with Docker scheduled tasks not executing）
+- 修复使用历史结果时频道数据异常问题（Fixed issue with channel data anomalies when using historical results）
+- 优化 UI 界面软件运行生成配置目录，方便查看与修改（Optimized UI interface software to generate configuration directory for easier viewing and modification）
+
+## v1.3.5
+
+### 2024/8/14
+
+- 新增支持地区组播 ip 更新，调整默认以此模式运行，基本实现高清流畅播放（#225）（Added support for updating multicast IP for new regions and adjusted the default to run in this mode, basically achieving high-definition smooth playback (#225)）
+- 新增支持使用 FFmpeg 进行测速排序、获取分辨率信息，本地运行请手动安装 FFmpeg（Added support for speed sorting and resolution information using FFmpeg. Manually install FFmpeg when running locally）
+- 接口源增加分辨率信息，用于源切换时显示（Added resolution information to the interface source for display during source switching）
+- 调整配置文件与结果文件路径（config、output 目录），方便 docker 卷挂载（#226）（Adjusted the paths for configuration and result files (config, output directories) to facilitate Docker volume mounting (#226)）
+- 修改配置文件类型（config.ini）（Modified the configuration file type (config.ini)）
+
+## v1.3.4
+
+### 2024/7/31
+
+- 新增配置 open_use_old_result：保留使用历史更新结果，合并至本次更新中（Add configuration open_use_old_result: Keep using the previous update results and merge them into the current update）
+- 新增配置 open_keep_all：保留所有检索结果，推荐手动维护时开启（#121）（Add configuration open_keep_all: Keep all search results, recommend enabling it for manual maintenance (#121)）
+
+## v1.3.3
+
+### 2024/7/19
+
+- 支持 Docker 卷挂载目录映射（Support for Docker volume mount directory mapping）
+- 新增 requests 随机 User-Agent（Added random User-Agent for requests）
+- 修复读取用户配置问题（#208）（Fixed issue with reading user configuration (#208)）
+- 支持单日更新两次：6 点与 18 点（Supports updating twice a day: at 6 AM and 6 PM）
+
 ## v1.3.2
 
 ### 2024/7/10

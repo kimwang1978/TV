@@ -1,4 +1,7 @@
-# Television channel menu customization and live source interface update tool
+<div align="center">
+  <img src="./static/images/logo.png" alt="logo"/>
+  <h1 align="center">Live TV source update tool</h1>
+</div>
 
 Customize channel menus and automatically obtain and update the latest live source interfaces based on template files, verify, and generate usable channel interface files.
 
@@ -25,9 +28,9 @@ Customize channel menus and automatically obtain and update the latest live sour
 ## Features
 
 - Custom templates for creating desired channel categories and order
-- Supports multiple source acquisition methods: online search, multicast source, hotel source, subscription source
+- Supports multiple source acquisition methods: multicast source, hotel source, subscription source, online search
 - Interface speed testing and verification, with priority on response time and resolution, filtering out ineffective interfaces
-- Scheduled execution at 6:00 AM Beijing time daily
+- Scheduled execution at 6:00 AM and 18:00 PM Beijing time daily
 - Supports various execution methods: workflows, command line, GUI software, Docker
 - For more features, see [Config parameter](./docs/config_en.md)
 
@@ -59,34 +62,37 @@ pipenv run ui
 
 ### Method 3: Docker Update
 
-- requests: Lightweight, low performance requirements, fast update speed, stability uncertain (Recommend using this version for the subscription source)
-- driver: Higher performance requirements, slower update speed, high stability, high success rate (Online search, multicast source use this version)
+- requests: Lightweight, low performance requirements, fast update speed, stability uncertain (Recommend using this version for the multicast source and the subscription source)
+- driver: Higher performance requirements, slower update speed, high stability, high success rate (Online search use this version)
 
-It's recommended to try each one and choose the version that suits you. If you can get results with requests for online searches and multicast sources, prioritize choosing the version that uses requests.
+It's recommended to try each one and choose the version that suits you. If you can get results with requests for online searches, prioritize choosing the version that uses requests.
 
 ```bash
 1. Pull the image:
-
 For requests version:
 docker pull guovern/tv-requests:latest
 
 For driver version:
 docker pull guovern/tv-driver:latest
 
-2. Run the container: docker run --name tv-requests or driver -d -p 8000:8000 guovern/tv-requests or driver
+2. Run the container:
+docker run -d -p 8000:8000 guovern/tv-requests or driver
+
+Volume Mount Parameter (Optional):
+This allows synchronization of files between the host machine and the container. Modifying templates, configurations, and retrieving updated result files can be directly operated in the host machine's folder.
+
+config:
+-v <path>/config:/tv-requests/config or tv-driver/config
+
+result:
+-v <path>/output:/tv-requests/output or tv-driver/output
+
+For example: docker run -v /etc/docker/config:/tv-requests/config -v /etc/docker/output:/tv-requests/output -d -p 8000:8000 guovern/tv-requests
 
 3. Check the update results: Visit (domain:8000)
-
-4. Customization (optional):
-
-- Modify the template:
-docker cp your_system_path/user-demo.txt tv-requests or driver:/app/user-demo.txt
-
-- Modify the configuration:
-docker cp your_system_path/user-config.py tv-requests or driver:/app/user-config.py
 ```
 
-#### Note: Link to the result file after updates of methods one to three: http://local ip:8000
+#### Note: Link to the result file after updates of methods one to three: http://local ip:8000 or http://localhost:8000
 
 ### Method 4: Workflow Update
 
@@ -96,8 +102,17 @@ Fork this project and enable workflow updates
 
 If you don't want to bother, and my configuration just meets your needs, you can use the following links:
 
-- Interface source: https://ghproxy.net/raw.githubusercontent.com/Guovin/TV/gd/result.txt
-- Data source: https://ghproxy.net/raw.githubusercontent.com/Guovin/TV/gd/source.json
+- Interface source:
+
+```bash
+  https://ghproxy.net/raw.githubusercontent.com/Guovin/TV/gd/output/result.m3u
+```
+
+- Data source:
+
+```bash
+  https://ghproxy.net/raw.githubusercontent.com/Guovin/TV/gd/source.json
+```
 
 ## Changelog
 
@@ -109,4 +124,4 @@ If you don't want to bother, and my configuration just meets your needs, you can
 
 ## Appreciate
 
-![image](./docs/images/appreciate.jpg)
+![image](./static/images/appreciate.jpg)

@@ -1,28 +1,59 @@
 FROM python:3.8-slim
 
-WORKDIR /app
+ARG APP_WORKDIR=/tv
 
-COPY . /app
+ENV APP_WORKDIR=$APP_WORKDIR
+
+COPY . $APP_WORKDIR
+
+WORKDIR $APP_WORKDIR
 
 RUN pip install -i https://mirrors.aliyun.com/pypi/simple pipenv
 
 RUN pipenv install
 
-RUN sed -i 's@deb.debian.org@mirrors.aliyun.com@g' /etc/apt/sources.list \
-  && sed -i 's@security.debian.org@mirrors.aliyun.com@g' /etc/apt/sources.list
+RUN echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware\n \
+  deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware\n \
+  deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware\n \
+  deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware\n \
+  deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware\n \
+  deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware\n \
+  deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware\n \
+  deb https://mirrors.tuna.tsinghua.edu.cn/debian-security/ bookworm-security main contrib non-free non-free-firmware\n \
+  deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security/ bookworm-security main contrib non-free non-free-firmware\n" \
+  > /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y cron
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  cron \
+  xz-utils
+
+COPY tmp/ffmpeg-release-i686-static.tar.xz /tmp/
+
+RUN tar -xf /tmp/ffmpeg-release-i686-static.tar.xz -C /tmp/ \
+  && cp /tmp/ffmpeg-*/ffmpeg /usr/local/bin/ \
+  && cp /tmp/ffmpeg-*/ffprobe /usr/local/bin/ \
+  && rm -rf /tmp/ffmpeg-*
 
 ARG INSTALL_CHROMIUM=false
 
-RUN if [ "$INSTALL_CHROMIUM" = "true" ]; then apt-get install -y chromium chromium-driver cron; fi
+RUN if [ "$INSTALL_CHROMIUM" = "true" ]; then \
+  apt-get install -y --no-install-recommends \
+  chromium \
+  chromium-driver; \
+  fi
 
-RUN (crontab -l 2>/dev/null; echo "0 22 * * * cd /app && pipenv run python main.py scheduled_task") | crontab -
+RUN  apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN (crontab -l ; \
+  echo "0 22 * * * cd $APP_WORKDIR && /usr/local/bin/pipenv run python main.py scheduled_task"; \
+  echo "0 10 * * * cd $APP_WORKDIR && /usr/local/bin/pipenv run python main.py scheduled_task") | crontab -
 
 EXPOSE 8000
 
-COPY entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh /tv_entrypoint.sh
 
-RUN chmod +x /entrypoint.sh
+COPY config /tv_config
 
-ENTRYPOINT ["/entrypoint.sh"]
+RUN chmod +x /tv_entrypoint.sh
+
+ENTRYPOINT /tv_entrypoint.sh

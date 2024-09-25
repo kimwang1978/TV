@@ -2,7 +2,6 @@ import requests
 import re
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
-from time import sleep
 
 headers = {
     "Accept": "*/*",
@@ -14,14 +13,19 @@ headers = {
 session = requests.Session()
 
 
-def get_source_requests(url, proxy=None, timeout=30):
+def get_source_requests(url, data=None, proxy=None, timeout=30):
     """
     Get the source by requests
     """
     proxies = {"http": proxy}
     ua = UserAgent()
     headers["User-Agent"] = ua.random
-    response = session.get(url, headers=headers, proxies=proxies, timeout=timeout)
+    if data:
+        response = session.post(
+            url, headers=headers, data=data, proxies=proxies, timeout=timeout
+        )
+    else:
+        response = session.get(url, headers=headers, proxies=proxies, timeout=timeout)
     source = re.sub(
         r"<!--.*?-->",
         "",
@@ -31,11 +35,11 @@ def get_source_requests(url, proxy=None, timeout=30):
     return source
 
 
-def get_soup_requests(url, proxy=None, timeout=30):
+def get_soup_requests(url, data=None, proxy=None, timeout=30):
     """
     Get the soup by requests
     """
-    source = get_source_requests(url, proxy, timeout)
+    source = get_source_requests(url, data, proxy, timeout)
     soup = BeautifulSoup(source, "html.parser")
     return soup
 
