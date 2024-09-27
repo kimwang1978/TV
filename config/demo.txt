@@ -27,3 +27,9 @@ CCTV-16
 凤凰香港
 TVBS亚洲
 香港卫视
+
+电影频道,#genre#
+CHC影迷电影
+CHC动作电影
+CHC家庭影院
+CHC高清电影
