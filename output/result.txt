@@ -1,0 +1,12 @@
+更新时间,#genre#
+2024-12-08 06:15:54,url
+🌊港·澳·台,#genre#
+翡翠台,http://kkk.jjjj.jiduo.me/api.php?n=tttt&id=0401&tk=2aca1ad9a849$订阅源
+翡翠台,http://aktv.top/AKTV/live/aktv/null/AKTV.m3u8$订阅源
+翡翠台,http://58.250.155.2:8180/TV00000000000000000032@HHZT$订阅源
+湖北经视,http://58.48.37.158:1111/tsfile/live/0019_1.m3u8?key=txiptv&playlive=1&authid=0$湖北酒店源
+湖北经视,http://220.249.114.102:9901/tsfile/live/1007_1.m3u8?key=txiptv&playlive=1&authid=0$湖北酒店源
+湖北经视,http://59.173.183.242:9901/tsfile/live/1000_1.m3u8?key=txiptv&playlive=1&authid=0$湖北酒店源
+湖北经视,http://113.57.93.165:9900/tsfile/live/1017_1.m3u8?key=txiptv&playlive=1&authid=0$湖北酒店源
+湖北经视,http://59.173.183.242:9901/tsfile/live/1000_1.m3u8$订阅源
+湖北经视,http://59.173.243.210:9901/tsfile/live/1019_1.m3u8$订阅源
