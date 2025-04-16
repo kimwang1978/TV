@@ -15,7 +15,7 @@ jobs:
     timeout-minutes: 120
     strategy:
       matrix:
-        operating-system: [ 'ubuntu-20.04' ]
+        operating-system: [ 'ubuntu-24.04' ]
     steps:
       - name: Set branch name
         id: vars
