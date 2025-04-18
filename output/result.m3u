@@ -1,5 +1,5 @@
 #EXTM3U x-tvg-url="https://live.fanmingming.cn/e.xml"
-#EXTINF:-1 tvg-name="2025-04-18 18:16:56" tvg-logo="https://live.fanmingming.cn/tv/2025-04-18 18:16:56.png" group-title="🕘️更新时间",2025-04-18 18:16:56
+#EXTINF:-1 tvg-name="2025-04-19 06:17:44" tvg-logo="https://live.fanmingming.cn/tv/2025-04-19 06:17:44.png" group-title="🕘️更新时间",2025-04-19 06:17:44
 https://cdn.163189.xyz/live/fct4k/stream.m3u8$订阅源-3840x2160
 #EXTINF:-1 tvg-name="翡翠台" tvg-logo="https://live.fanmingming.cn/tv/翡翠台.png" group-title="🌊港·澳·台",翡翠台
 https://cdn.163189.xyz/live/fct4k/stream.m3u8$订阅源-3840x2160
@@ -30,19 +30,15 @@ http://cdn2.163189.xyz/live/gdty/stream.m3u8$订阅源-1920x1080
 #EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
 http://183.237.95.108:9901/tsfile/live/1033_1.m3u8?key=txiptv&playlive=0&authid=0$订阅源
 #EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
+http://120.238.94.10:9901/tsfile/live/1012_1.m3u8$订阅源
+#EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
 http://120.198.101.106:9901/tsfile/live/1012_1.m3u8?key=txiptv$订阅源
-#EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
-http://120.198.95.220:9901/tsfile/live/1010_1.m3u8?key=txiptv$订阅源
-#EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
-http://120.77.205.62:8087/rtp/239.77.0.112:5146$组播源
-#EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
-http://183.11.239.36:808/hls/2/index.m3u8$订阅源
 #EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
 http://121.33.239.242:9901/tsfile/live/1001_1.m3u8?key=txiptv&playlive=1&authid=0$订阅源
 #EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
-http://api3.52tb.xyz/info?id=413&token=20221127jxwhhemby$订阅源
+http://120.77.205.62:8087/rtp/239.77.0.112:5146$组播源
 #EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
-http://api2.52tb.xyz/info?id=414&token=20230218jsyklh$订阅源
+http://api3.52tb.xyz/info?id=413&token=20221127jxwhhemby$订阅源
 #EXTINF:-1 tvg-name="广东珠江" tvg-logo="https://live.fanmingming.cn/tv/广东珠江.png" group-title="🌊港·澳·台",广东珠江
 http://cdn2.163189.xyz/live/gdzj/stream.m3u8$订阅源-1920x1080
 #EXTINF:-1 tvg-name="广东珠江" tvg-logo="https://live.fanmingming.cn/tv/广东珠江.png" group-title="🌊港·澳·台",广东珠江
@@ -52,7 +48,7 @@ http://live.xmcdn.com/live/252/64.m3u8$订阅源
 #EXTINF:-1 tvg-name="广东珠江" tvg-logo="https://live.fanmingming.cn/tv/广东珠江.png" group-title="🌊港·澳·台",广东珠江
 http://183.237.95.108:9901/tsfile/live/1030_1.m3u8?key=txiptv&playlive=0&authid=0$订阅源
 #EXTINF:-1 tvg-name="广东珠江" tvg-logo="https://live.fanmingming.cn/tv/广东珠江.png" group-title="🌊港·澳·台",广东珠江
-http://120.77.205.62:8087/rtp/239.77.0.1:5146$组播源
+http://120.238.94.10:9901/tsfile/live/1009_1.m3u8$订阅源
 #EXTINF:-1 tvg-name="广东珠江" tvg-logo="https://live.fanmingming.cn/tv/广东珠江.png" group-title="🌊港·澳·台",广东珠江
 http://[2409:8087:5e00:24::1e]:6060/200000001898/460000089800010091/1.m3u8$订阅源-IPv6-1920x1080
 #EXTINF:-1 tvg-name="广东珠江" tvg-logo="https://live.fanmingming.cn/tv/广东珠江.png" group-title="🌊港·澳·台",广东珠江
@@ -66,10 +62,8 @@ http://[2409:8087:5e08:24::17]:6610/000000001000/2000000003000000033/index.m3u8?
 #EXTINF:-1 tvg-name="广东民生" tvg-logo="https://live.fanmingming.cn/tv/广东民生.png" group-title="🌊港·澳·台",广东民生
 http://183.237.95.108:9901/tsfile/live/1032_1.m3u8?key=txiptv&playlive=0&authid=0$订阅源
 #EXTINF:-1 tvg-name="广东民生" tvg-logo="https://live.fanmingming.cn/tv/广东民生.png" group-title="🌊港·澳·台",广东民生
+http://121.33.239.242:9901/tsfile/live/1003_1.m3u8?key=txiptv&playlive=1&authid=0$订阅源
+#EXTINF:-1 tvg-name="广东民生" tvg-logo="https://live.fanmingming.cn/tv/广东民生.png" group-title="🌊港·澳·台",广东民生
 http://120.77.205.62:8087/rtp/239.77.0.225:5146$组播源
 #EXTINF:-1 tvg-name="广东民生" tvg-logo="https://live.fanmingming.cn/tv/广东民生.png" group-title="🌊港·澳·台",广东民生
 http://120.77.205.62:8087/rtp/239.77.0.5:5146$组播源
-#EXTINF:-1 tvg-name="广东民生" tvg-logo="https://live.fanmingming.cn/tv/广东民生.png" group-title="🌊港·澳·台",广东民生
-http://183.11.239.36:808/hls/18/index.m3u8$订阅源
-#EXTINF:-1 tvg-name="广东民生" tvg-logo="https://live.fanmingming.cn/tv/广东民生.png" group-title="🌊港·澳·台",广东民生
-http://121.33.239.242:9901/tsfile/live/1003_1.m3u8?key=txiptv&playlive=1&authid=0$订阅源
