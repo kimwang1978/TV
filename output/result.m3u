@@ -1,8 +1,6 @@
 #EXTM3U x-tvg-url="https://live.fanmingming.cn/e.xml"
-#EXTINF:-1 tvg-name="2026-02-14 06:30:35" tvg-logo="https://live.fanmingming.cn/tv/2026-02-14 06:30:35.png" group-title="🕘️更新时间",2026-02-14 06:30:35
-http://218.13.170.98:9901/tsfile/live/0019_1.m3u8$订阅源-1920x1080
-#EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
-http://218.13.170.98:9901/tsfile/live/0019_1.m3u8$订阅源-1920x1080
+#EXTINF:-1 tvg-name="2026-02-14 18:21:14" tvg-logo="https://live.fanmingming.cn/tv/2026-02-14 18:21:14.png" group-title="🕘️更新时间",2026-02-14 18:21:14
+http://120.238.85.131:9901/tsfile/live/1013_1.m3u8?key=txiptv&playlive=0&authid=0$订阅源-720x576
 #EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
 http://120.238.85.131:9901/tsfile/live/1013_1.m3u8?key=txiptv&playlive=0&authid=0$订阅源-720x576
 #EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
