@@ -1,12 +1,12 @@
 #EXTM3U x-tvg-url="https://live.fanmingming.cn/e.xml"
-#EXTINF:-1 tvg-name="2026-05-01 06:52:21" tvg-logo="https://live.fanmingming.cn/tv/2026-05-01 06:52:21.png" group-title="🕘️更新时间",2026-05-01 06:52:21
+#EXTINF:-1 tvg-name="2026-05-01 19:03:56" tvg-logo="https://live.fanmingming.cn/tv/2026-05-01 19:03:56.png" group-title="🕘️更新时间",2026-05-01 19:03:56
 http://61.184.46.85:9901/tsfile/live/0019_1.m3u8?key=txiptv&playlive=1&authid=0$订阅源-1920x1080
 #EXTINF:-1 tvg-name="湖北经视" tvg-logo="https://live.fanmingming.cn/tv/湖北经视.png" group-title="🌊港·澳·台",湖北经视
 http://61.184.46.85:9901/tsfile/live/0019_1.m3u8?key=txiptv&playlive=1&authid=0$订阅源-1920x1080
 #EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
-http://183.11.239.36:808/hls/2/index.m3u8$订阅源-1920x1080
-#EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
 http://218.13.170.98:9901/tsfile/live/0019_1.m3u8$订阅源-1920x1080
+#EXTINF:-1 tvg-name="广东体育" tvg-logo="https://live.fanmingming.cn/tv/广东体育.png" group-title="🌊港·澳·台",广东体育
+http://183.11.239.36:808/hls/2/index.m3u8$订阅源-1920x1080
 #EXTINF:-1 tvg-name="广东珠江" tvg-logo="https://live.fanmingming.cn/tv/广东珠江.png" group-title="🌊港·澳·台",广东珠江
 https://iptv.catvod.com/catvod?id=%E5%B9%BF%E4%B8%9C%E7%8F%A0%E6%B1%9F&line=1$订阅源-1920x1080
 #EXTINF:-1 tvg-name="广东珠江" tvg-logo="https://live.fanmingming.cn/tv/广东珠江.png" group-title="🌊港·澳·台",广东珠江

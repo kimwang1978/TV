@@ -1,10 +1,10 @@
 🕘️更新时间,#genre#
-2026-05-01 06:52:21,http://61.184.46.85:9901/tsfile/live/0019_1.m3u8?key=txiptv&playlive=1&authid=0$订阅源-1920x1080
+2026-05-01 19:03:56,http://61.184.46.85:9901/tsfile/live/0019_1.m3u8?key=txiptv&playlive=1&authid=0$订阅源-1920x1080
 
 🌊港·澳·台,#genre#
 湖北经视,http://61.184.46.85:9901/tsfile/live/0019_1.m3u8?key=txiptv&playlive=1&authid=0$订阅源-1920x1080
-广东体育,http://183.11.239.36:808/hls/2/index.m3u8$订阅源-1920x1080
 广东体育,http://218.13.170.98:9901/tsfile/live/0019_1.m3u8$订阅源-1920x1080
+广东体育,http://183.11.239.36:808/hls/2/index.m3u8$订阅源-1920x1080
 广东珠江,https://iptv.catvod.com/catvod?id=%E5%B9%BF%E4%B8%9C%E7%8F%A0%E6%B1%9F&line=1$订阅源-1920x1080
 广东珠江,https://iptv.catvod.com/catvod?id=%E5%B9%BF%E4%B8%9C%E7%8F%A0%E6%B1%9F&line=2$订阅源-1920x1080
 广东珠江,http://183.11.239.36:808/hls/83/index.m3u8$订阅源-1920x1080
