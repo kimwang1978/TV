@@ -1,5 +1,5 @@
 🕘️更新时间,#genre#
-2026-08-25 06:22:29,http://61.143.43.2:9901/tsfile/live/1001_1.m3u8?key=txiptv&playlive=1&authid=0$订阅源-1920x1080
+2026-08-25 18:25:25,http://61.143.43.2:9901/tsfile/live/1001_1.m3u8?key=txiptv&playlive=1&authid=0$订阅源-1920x1080
 
 🌊港·澳·台,#genre#
 广东体育,http://61.143.43.2:9901/tsfile/live/1001_1.m3u8?key=txiptv&playlive=1&authid=0$订阅源-1920x1080
